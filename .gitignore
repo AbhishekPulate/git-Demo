@@ -1,3 +1,4 @@
+HEAD
 # Build folders
 bin/
 obj/
@@ -12,3 +13,5 @@ target/
 # OS
 .DS_Store
 Thumbs.db
+notes.txt
+753a4a8544ed108826cbf1e453ab1f1080ea933b
