@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "0DR4TMC/gTw=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\abhis\\OneDrive\\Desktop\\Revature Training\\Day 5\\SOLIDDemo\\ConsoleApp\\ConsoleApp.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\abhis\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\10.0.2\\microsoft.extensions.dependencyinjection.10.0.2.nupkg.sha512",
+    "C:\\Users\\abhis\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\10.0.2\\microsoft.extensions.dependencyinjection.abstractions.10.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}
