@@ -14,7 +14,9 @@ using (var conn = new MySqlConnection(connString))
         //ExecuteScalar(conn);
         //ExecuteNonQuery(conn);
         //SqlDataAdapterDemo(conn);
-        InsertCustomerDemo(conn);
+        //InsertCustomerDemo(conn);
+        SqlInjectionDemo(conn);
+        ParameterizedQueryDemo(conn);
     }
     catch (Exception ex)
     {
@@ -29,33 +31,32 @@ using (var conn = new MySqlConnection(connString))
 }
 
 
-void ParameterizedQueryDemo(SqlConnection connection)
+void ParameterizedQueryDemo(MySqlConnection connection)
 {
-    using (SqlCommand command = new SqlCommand(
+    using (MySqlCommand command = new MySqlCommand(
         "SELECT * FROM Customers WHERE Name LIKE @Name",
         connection))
-
     {
-        // var id = "3";
-        // var id = "3 or 1 = 1";
-        // var id = "3 or 1 = 1";
-        // Add parameters - database treats them as DATA, never as SQL code
-        var name = "John or 1 = 1";
+        var name = "John%";   // Use % for LIKE in MySQL
+
+        // Add parameter (SAFE)
         command.Parameters.AddWithValue("@Name", name);
 
-        using SqlDataReader reader = command.ExecuteReader();
+        using MySqlDataReader reader = command.ExecuteReader();
+
         if (reader.Read())
         {
             Console.WriteLine($"Id: {reader["Id"]}, Name: {reader["Name"]}, Age: {reader["Age"]}");
         }
         else
         {
-            Console.WriteLine("No customer found with the specified Id.");
+            Console.WriteLine("No customer found.");
         }
     }
-}
+}   
 
-void SqlInjectionDemo(SqlConnection connection)
+
+void SqlInjectionDemo(MySqlConnection connection)
 {
     // Query: SELECT * FROM Customers WHERE Id = 1 or 1 = 1
     var userInput = "1 or 1 = 1";
@@ -63,7 +64,7 @@ void SqlInjectionDemo(SqlConnection connection)
     // var userInput = "3";
     var query = $"SELECT * FROM Customers WHERE Id = {userInput}";
 
-    using var command = new SqlCommand(query, connection);
+    using var command = new MySqlCommand(query, connection);
     try
     {
         using var reader = command.ExecuteReader();
